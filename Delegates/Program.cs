@@ -8,16 +8,23 @@ namespace Delegates
     {
         public static void Main(string[] args)
         {
-            string directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "Data");
-
-            DirectoryHelper directoryHelper = new();
-            directoryHelper.FileFound += OnFileFound;
-
             List<FileArgs> files = [];
+
+            string directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "Data");
+            DirectoryHelper directoryHelper = new();
+
+            // Add common handler.
+            directoryHelper.FileFound += (sender, e) =>
+            {
+                Console.WriteLine($"File found: {e}");
+            };
+
+            // Add handler for files accumulating.
             directoryHelper.FileFound += (sender, e) =>
             {
                 files.Add(e);
 
+                // Halting the program after third file for test purposes.
                 if (files.Count >= 3)
                 {
                     e.Cancel = true;
@@ -28,11 +35,6 @@ namespace Delegates
 
             FileArgs? largestFile = files.GetMax(x => x.FileSize);
             Console.WriteLine($"Largest file is: {largestFile}");
-        }
-
-        private static void OnFileFound(object sender, FileArgs e)
-        {
-            Console.WriteLine($"File found: {e}");
         }
     }
 }

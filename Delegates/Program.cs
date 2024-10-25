@@ -1,4 +1,5 @@
-﻿using Delegates.Helpers;
+﻿using Delegates.Events;
+using Delegates.Helpers;
 
 namespace Delegates
 {
@@ -8,7 +9,10 @@ namespace Delegates
         {
             string directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "Data");
 
-            DirectoryHelper.Blah(directoryPath);
+            DirectoryHelper directoryHelper = new();
+            directoryHelper.FileFound += EventHandlers.OnFileFound;
+
+            directoryHelper.FindDirectoryFiles(directoryPath);
         }
     }
 }

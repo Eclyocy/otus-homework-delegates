@@ -2,9 +2,11 @@
 
 namespace Delegates.Helpers
 {
-    public static class DirectoryHelper
+    public class DirectoryHelper
     {
-        public static void Blah(string directoryPath)
+        public event EventHandler<FileArgs> FileFound;
+
+        public void FindDirectoryFiles(string directoryPath)
         {
             directoryPath = Path.GetFullPath(directoryPath);
 
@@ -15,8 +17,7 @@ namespace Delegates.Helpers
 
             foreach (string filePath in Directory.GetFiles(directoryPath, "*.*", SearchOption.AllDirectories))
             {
-                FileArgs fileArgs = new(filePath);
-                Console.WriteLine(fileArgs);
+                FileFound?.Invoke(this, new(filePath));
             }
         }
     }

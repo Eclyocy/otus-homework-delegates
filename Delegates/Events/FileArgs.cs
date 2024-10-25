@@ -11,10 +11,12 @@
                 FilePath);
         }
 
-        protected string FileName { get; } = Path.GetFileName(filePath);
+        public string FileName { get; } = Path.GetFileName(filePath);
 
-        protected string FilePath { get; } = Path.GetFullPath(filePath);
+        public string FilePath { get; } = Path.GetFullPath(filePath);
 
-        protected long FileSize { get; } = new FileInfo(filePath).Length;
+        public long FileSize { get; } = new FileInfo(filePath).Length;
+
+        public bool Cancel { get; set; } = false;
     }
 }

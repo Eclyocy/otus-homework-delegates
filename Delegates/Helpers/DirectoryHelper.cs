@@ -15,9 +15,16 @@ namespace Delegates.Helpers
                 throw new ArgumentException($"Directory {directoryPath} does not exist.");
             }
 
-            foreach (string filePath in Directory.GetFiles(directoryPath, "*.*", SearchOption.AllDirectories))
+            foreach (string filePath in Directory.EnumerateFiles(directoryPath, "*.*", SearchOption.AllDirectories))
             {
-                FileFound?.Invoke(this, new(filePath));
+                FileArgs args = new(filePath);
+
+                FileFound?.Invoke(this, args);
+
+                if (args.Cancel)
+                {
+                    break;
+                }
             }
         }
     }

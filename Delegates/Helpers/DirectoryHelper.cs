@@ -23,7 +23,9 @@ namespace Delegates.Helpers
 
                 if (args.Cancel)
                 {
-                    break;
+                    Console.WriteLine("Cancellation received. Files searching is halted.");
+
+                    return;
                 }
             }
         }

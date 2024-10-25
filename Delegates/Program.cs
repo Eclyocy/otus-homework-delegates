@@ -8,7 +8,7 @@ namespace Delegates
     {
         public static void Main(string[] args)
         {
-            string directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "Data");
+            string directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "Data");
 
             DirectoryHelper directoryHelper = new();
             directoryHelper.FileFound += OnFileFound;
